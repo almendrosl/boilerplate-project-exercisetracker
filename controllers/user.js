@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-exports.test = (req, res) => {
+exports.addUser = (req, res) => {
     let user = new User(
         {
             username: req.body.username
@@ -19,3 +19,10 @@ exports.test = (req, res) => {
         }
     })
 };
+
+exports.getAllUsers = (req, res) => {
+    User.find((err, users) => {
+        if (err) throw err;
+        res.json(users);
+    })
+}
