@@ -26,3 +26,16 @@ exports.getAllUsers = (req, res) => {
         res.json(users);
     })
 }
+
+exports.addExercise = (req, res, next) => {
+    const date = req.body.date ? req.body.date : undefined;
+    const exercise = { description: req.body.description, duration: req.body.duration, date: date };
+    User.findOneAndUpdate(
+        { _id: req.body.userId },
+        { $push: { exercises: exercise } },
+        function (err, success) {
+            if (err) return next({ status: 400, message: err.reason.message });
+            res.json(success);
+        }
+    );
+};

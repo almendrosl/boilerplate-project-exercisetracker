@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const exerciseSchema = require('./exercise')
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -6,7 +7,8 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    exercises: [exerciseSchema]
 });
 
 module.exports = mongoose.model('User', UserSchema);
