@@ -4,11 +4,13 @@
 	"description": "A REST API project, part of Free Code Camp's curriculum",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "node server.js",
+		"start_local": "node -r dotenv/config server.js",
+		"dev": "nodemon /server.js set NODE_ENV=development"
 	},
 	"dependencies": {
 		"express": "^4.14.0",
-		"mongoose": "^4.7.2",
+		"mongoose": "^5.6.11",
 		"mongodb": "^2.2.14",
 		"body-parser": "^1.15.2",
 		"cors": "^2.8.1",
@@ -25,5 +27,9 @@
 		"node",
 		"gomix",
 		"express"
-	]
+	],
+	"devDependencies": {
+		"dotenv": "^8.1.0",
+		"nodemon": "^1.19.1"
+	}
 }
