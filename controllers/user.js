@@ -21,7 +21,7 @@ exports.addUser = (req, res) => {
 };
 
 exports.getAllUsers = (req, res) => {
-    User.find((err, users) => {
+    User.find().select('_id username').exec((err, users) => {
         if (err) throw err;
         res.json(users);
     })
@@ -39,3 +39,15 @@ exports.addExercise = (req, res, next) => {
         }
     );
 };
+
+exports.getLog = (req, res, next) => {
+    User.findById(req.query.userId).exec((err, respDB) => {
+        if (err) return next({ status: 400, message: err.reason.message });
+        res.json({
+            _id: respDB._id,
+            username: respDB.username,
+            count: respDB.exercises.length,
+            log: respDB.exercises
+        });
+    })
+}

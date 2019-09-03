@@ -9,4 +9,6 @@ router.get('/users', user_controller.getAllUsers);
 
 router.post('/add', user_controller.addExercise);
 
+router.get('/log', user_controller.getLog);
+
 module.exports = router;
