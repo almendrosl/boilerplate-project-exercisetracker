@@ -41,8 +41,23 @@ exports.addExercise = (req, res, next) => {
 };
 
 exports.getLog = (req, res, next) => {
-    User.findById(req.query.userId).exec((err, respDB) => {
-        if (err) return next({ status: 400, message: err.reason.message });
+    let query = User.findById(req.query.userId)
+    if (req.query.from) {
+        var as = new Date(req.query.from)
+        query.where('exercises.date').gte(as.toJSON());
+    }
+    if (req.query.to) {
+        console.log(new Date(req.query.to))
+        query.where('exercises.date').lte(req.query.to);
+    }
+    if (req.query.limit) {
+        query.slice('exercises', parseInt(req.query.limit))
+    }
+    query.exec((err, respDB) => {
+        if (err) {
+            console.log(err);
+            return next({ status: 400, message: err.reason.message })
+        };
         res.json({
             _id: respDB._id,
             username: respDB.username,
